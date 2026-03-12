@@ -5,7 +5,7 @@ int main() {
     Client client;
     std::signal(SIGINT, Client::end_client);
     client.connect_to_server();
-    // Do something with the client
+    client.start_game();
     client.disconnect_from_server();
     return 0;
 }

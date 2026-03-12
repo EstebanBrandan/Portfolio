@@ -28,6 +28,14 @@ void Client::connect_to_server() {
     connect(client_socket, ptr->ai_addr, ptr->ai_addrlen);
 }
 
+void Client::start_game() {
+    std::cout << "Starting game..." << std::endl;
+    std::string message;
+    std::cout << "Enter a message to send to the server: ";
+    std::cin >> message;
+    send(client_socket, message.c_str(), message.size(), 0);
+}
+
 void Client::disconnect_from_server() {
     std::cout << "Disconnecting from server..." << std::endl;
     close(client_socket);

@@ -14,6 +14,7 @@ private:
 public:
     Client();
     void connect_to_server();
+    void start_game();
     void disconnect_from_server();
     static void end_client(int signal);
 };

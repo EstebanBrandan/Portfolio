@@ -22,6 +22,7 @@ Server::Server() {
 
     bind(server_socket, ptr->ai_addr, ptr->ai_addrlen);
     listen(server_socket, 1);
+    clients = std::vector<ClientHandler*>();
 }
 
 Server* Server::self = nullptr;
@@ -34,13 +35,16 @@ void Server::start() {
             continue;
         }
         std::cout << "Client connected!" << std::endl;
-        // Handle client connection here
-        close(clientfd);
+        clients.push_back(new ClientHandler(clients.size(), clientfd));
     }
 }
 
 void Server::stop() {
     std::cout << "Stopping server..." << std::endl;
+    for (ClientHandler* client : clients) {
+        client->join();
+        delete client;
+    }
     close(server_socket);
 }
 

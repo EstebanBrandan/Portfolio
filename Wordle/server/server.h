@@ -6,11 +6,15 @@
 #include <cstring>
 #include <unistd.h>
 #include <iostream>
+#include <vector>
+
+#include "client_handler.h"
 
 class Server {
 private:
     int server_socket;
     static Server* self;
+    std::vector<ClientHandler*> clients;
 
 public:
     Server();
