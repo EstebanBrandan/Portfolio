@@ -14,7 +14,30 @@ void ClientHandler::handle_client() {
     message = std::string(buffer, bytes_received);
 
     std::cout << "Received from client " << client_id << ": " << message << "." << std::endl;
-    // Handle client connection here
+    
+    std::stringstream response;
+    std::string misterious_word = "HELLO";
+    std::transform(message.begin(), message.end(), message.begin(), ::toupper);
+    if (message == misterious_word) {
+        response << "\033[32m" << misterious_word << "\033[0m";
+    } else {
+        int i = 0;
+        for (char& c : message) {
+            if (misterious_word.find(c) != std::string::npos) {
+                if (misterious_word[i] == c) {
+                    response << "\033[32m";
+                } else {
+                    response << "\033[33m";
+                }
+                response << c << "\033[0m";
+            } else {
+                response << "\033[31m" << c << "\033[0m";
+            }
+            i++;
+        }
+    }
+    send(socket_fd, response.str().c_str(), response.str().size(), 0);
+
 };
 
 void ClientHandler::join() {

@@ -34,6 +34,9 @@ void Client::start_game() {
     std::cout << "Enter a message to send to the server: ";
     std::cin >> message;
     send(client_socket, message.c_str(), message.size(), 0);
+    char buffer[1024];
+    ssize_t bytes_received = recv(client_socket, buffer, sizeof(buffer), 0);
+    std::cout << "Received from server: " << std::string(buffer, bytes_received) << std::endl;
 }
 
 void Client::disconnect_from_server() {

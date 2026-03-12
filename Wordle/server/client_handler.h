@@ -5,6 +5,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <algorithm>
+#include <sstream>
 
 class ClientHandler {
     std::thread handler_thread;
